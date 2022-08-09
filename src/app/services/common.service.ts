@@ -55,5 +55,11 @@ export class CommonService {
   cartSubject = new BehaviorSubject(this.cart);
   cartObs = this.cartSubject.asObservable();
 
+  removeFromCart(id:number){
+    let cartindex = this.cart.findIndex(x => x.id === id);
+    this.cart.splice(cartindex, 1);
+    this.cartSubject.next(this.cart);
+  }
+
   constructor() { }
 }
