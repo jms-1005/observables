@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CartItem, Product } from '../interface';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,27 @@ export class CommonService {
     }
   ];
 
-  cart:CartItem[] = [];
+  //We need to make this cart an OBSERVABLE becase the cart label on the top menu is observing this array
+  //1. Import BehaviourSubject from rxjs
+  //2. Create a subject of the property that you want to observe. It will bear a copy of the the item within it
+  //3. Create an Observable of the subject using the 'asObservable()' method
+  //4. Whenever there is an update to the item, notify the subject using "next()"
+  cart:CartItem[] = [
+    // {
+    //   id: 1,
+    //   qty: 2,
+    //   title: "test",
+    //   price: 22
+    // },
+    // {
+    //   id: 2,
+    //   qty: 2,
+    //   title: "test",
+    //   price: 22
+    // }
+  ];
+  cartSubject = new BehaviorSubject(this.cart);
+  cartObs = this.cartSubject.asObservable();
 
   constructor() { }
 }

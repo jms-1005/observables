@@ -47,6 +47,7 @@ export class ProductsComponent implements OnInit {
       this.cs.cart.splice(cartindex, 1);
     }
 
+    this.cs.cartSubject.next(this.cs.cart);
     console.log(this.cs.cart);
 
   }
@@ -55,6 +56,7 @@ export class ProductsComponent implements OnInit {
     let cartindex = this.cs.cart.findIndex(x => x.id === id);
     this.cs.cart.splice(cartindex, 1);
     console.log(this.cs.cart);
+    this.cs.cartSubject.next(this.cs.cart);
   }
 
   ngOnInit(): void {
